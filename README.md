@@ -4,25 +4,30 @@
 	- i3status - generates status bar to use with i3bar
 	- dmenu - for searching applications
 	- i3exit - exit-script for i3
+	- i3blocks - Define blocks for your i3bar status line (make new scripts executable: chmod)
+		- sysstat - display CPU usage
 - Screen
 	- Xorg-xrandr - used for managing monitors
 	- Xorg-xbacklight - used for managing screen brightness
 	- Arandr - provides a simple visual front end for XRandR
 	- Compton - compositor manager that may fix tearing issues
 	- Feh - image viewer for setting background images
-	- Dunst - notification manager
 	- Redshift - adjusts the color temperature of your screen
+	- [Dunst] - notification manager
 - Audio:
 	- Playerctl - media player controller
 	- Read more about setting multimedia buttons: https://faq.i3wm.org/question/3747/enabling-multimedia-keys.1.html and this one https://www.reddit.com/r/i3wm/comments/5gnw5y/start_pause_music_with_the_same_key_combination/
 	- And changing default sound output (e.g. from monitor to laptop):
 https://askubuntu.com/questions/690711/change-sound-output-from-command-line
-	- Volumeicon - volume control for your system tray
+	- [Volumeicon] - volume control for your system tray
 - Screen lock
 	- Xautolock - an automatic X screen-locker/screen-saver
 - Network manager
 	- Network-manager-applet
 https://faq.i3wm.org/question/2/how-can-i-use-networkmanager-with-i3.1.html
+- Fonts
+	- ttf-symbola - for symbols and emoji (restart after installation)
+	- For manual instalation (Fontawesome - add `<i></i>` after icon if malformed icons) read this: https://wiki.archlinux.org/index.php/fonts#Manual_installation
 
 # Arch/Manjaro
 - Yaourt

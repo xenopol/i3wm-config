@@ -1,0 +1,6 @@
+#!/bin/bash
+
+curBrightness=$(xbacklight -get)
+percent=$(echo "scale=0;${curBrightness}" | bc -l)
+
+echo "${percent%.*}%"

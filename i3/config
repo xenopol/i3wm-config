@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 10
+font pango:DejaVu 11
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -153,9 +153,8 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	status_command i3status
+	status_command i3blocks -c ~/.config/i3/i3blocks/i3blocks.conf
 	position top
-	separator_symbol ":|:"
 	colors {
 		background #222222
 		statusline #ffffff
@@ -169,40 +168,45 @@ bar {
 	}
 }
 
-###################################################################################################
+################################################################################
 
-# Multiple screens setup
+####################### Multiple screens setup #################################
 exec --no-startup-id xrandr --output HDMI2 --off --output HDMI1 --mode 1920x1080 --pos 1920x0 --rotate normal --output DP1 --off --output eDP1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output VIRTUAL1 --off
 
-# Background image
+####################### Background image #######################################
 exec_always --no-startup-id feh --bg-scale /home/daniel/Pictures/wallpaper_mikael_gustafsson.png
 
+####################### Sreen brightness controls ##############################
+# With dunst and custom scripts
+# bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; exec ~/.config/i3/scripts/brightness-notify"
+# bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; exec ~/.config/i3/scripts/brightness-notify"
+### With i3blocks ###
+bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; exec pkill -SIGRTMIN+10 i3blocks"
+bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; exec pkill -SIGRTMIN+10 i3blocks"
 
-#set bl (xbacklight -get); notify-send -h int:value:$bl 'Working...' 'https://google.com'
-# bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 10 && notify-send --expire-time=50 "LCD Backlight $(printf %.0f%% $(xbacklight -get))
+####################### Compton - for screen tearing ###########################
+exec_always --no-startup-id compton
 
-# Sreen brightness controls
-bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; exec ~/.config/i3/scripts/brightness-notify"
-bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; exec ~/.config/i3/scripts/brightness-notify"
-
-# Compton - for screen tearing
-exec --no-startup-id compton
-
-# Enable Redshift
+####################### Enable Redshift ########################################
 exec --no-startup-id redshift
 
-# Pulse Audio controls
+####################### Pulse Audio controls ###################################
+# With dunst and custom scripts
 # bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-volume 0 +5%; exec ~/.config/i3/scripts/volume-notify"
 # bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-volume 0 -5%; exec ~/.config/i3/scripts/volume-notify"
 # bindsym XF86AudioMute exec --no-startup-id pactl "set-sink-mute 0 toggle; exec ~/.config/i3/scripts/volume-notify"
-exec --no-startup-id volumeicon
+# exec --no-startup-id volumeicon
+### With i3blocks ###
+bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-volume 0 +5%; exec pkill -SIGRTMIN+10 i3blocks"
+bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-volume 0 -5%; exec pkill -SIGRTMIN+10 i3blocks"
+bindsym XF86AudioMute exec --no-startup-id "pactl set-sink-mute 0 toggle; exec pkill -SIGRTMIN+10 i3blocks"
 
-# Media player controls
+####################### Media player controls ##################################
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-# Set shut down, restart and locking features
+####################### Set shut down, restart and locking features ############
 bindsym $mod+o mode "$mode_system"
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
@@ -219,11 +223,11 @@ mode "$mode_system" {
 	bindsym Escape mode "default"
 }
 
-#navigate workspaces next / previous
+####################### navigate workspaces next / previous ####################
 bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
 
-# Layout configuration
+####################### Layout configuration ###################################
 new_window pixel 1
 hide_edge_borders smart
 
@@ -251,7 +255,7 @@ mode "$mode_gaps" {
 	bindsym Return mode "default"
 }
 
-# Color configuration
+####################### Color configuration ####################################
 # class                 border  backgr. text    indicator child_border
 client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
 client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
@@ -261,9 +265,9 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
 
-# Behavior configuration
+####################### Behavior configuration #################################
 workspace_auto_back_and_forth yes
 
-# Startup application
-exec --no-startup-id xautolock -time 10 -detectsleep -locker 'i3exit suspend' # atuolock
+####################### Startup application ####################################
+exec --no-startup-id xautolock -time 60 -detectsleep -locker 'i3exit suspend' # atuolock
 exec --no-startup-id nm-applet # network manager
