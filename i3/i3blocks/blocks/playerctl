@@ -13,6 +13,6 @@ INFO_TITLE=$(playerctl ${ARGUMENTS} metadata title)
 INFO_ALBUM=$(playerctl ${ARGUMENTS} metadata album)
 INFO_ARTIST=$(playerctl ${ARGUMENTS} metadata artist)
 
-if [[ "${INFO_TITLE}" != "" ]] && [[ "${INFO_ARTIST}" != "" ]]; then
+if [[ "${INFO_TITLE}" != "(null)" ]] && [[ "${INFO_ARTIST}" != "(null)" ]]; then
   echo "${INFO_ARTIST} - ${INFO_TITLE} ${CUR_ICON}"
 fi

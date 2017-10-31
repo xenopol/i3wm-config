@@ -28,6 +28,8 @@ https://faq.i3wm.org/question/2/how-can-i-use-networkmanager-with-i3.1.html
 - Fonts
 	- ttf-symbola - for symbols and emoji (restart after installation)
 	- For manual instalation (Fontawesome - add `<i></i>` after icon if malformed icons) read this: https://wiki.archlinux.org/index.php/fonts#Manual_installation
+-Drivers
+	- touchpad: https://wiki.archlinux.org/index.php/Libinput#Common_options
 
 # Arch/Manjaro
 - Yaourt
@@ -43,6 +45,7 @@ https://faq.i3wm.org/question/2/how-can-i-use-networkmanager-with-i3.1.html
 	- Htop - Interactive process viewer
 	- Ranger - a simple, vim-like file manager
 	- Xclip - Command line interface to the X11 clipboard
+	- archey3 - Output a logo and various system information
 
 # Guides:
 - How to enable spell check: go to Manjaro Settings Manager -> Language Packages and choose a spell checker: hunspell
