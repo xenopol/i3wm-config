@@ -22,34 +22,19 @@ WEATHER_URL="http://api.openweathermap.org/data/2.5/weather?id=${CITY_ID}&appid=
 
 WEATHER_INFO=$(wget -qO- "${WEATHER_URL}")
 WEATHER_MAIN=$(echo "${WEATHER_INFO}" | grep -o -e '\"main\":\"[a-Z]*\"' | awk -F ':' '{print $2}' | tr -d '"')
+WEATHER_DESCRIPTION=$(wget -qO- "http://api.openweathermap.org/data/2.5/weather?id=2618425&appid=7caf316be9a0da43ee130ab9f4bd53d5&units=metric" | grep -o -e '\"description\":\"*[a-Z ]*\"' | awk -F ':' '{print $2}' | tr -d '"')
 WEATHER_TEMP=$(echo "${WEATHER_INFO}" | grep -o -e '\"temp\":\-\?[0-9]*' | awk -F ':' '{print $2}' | tr -d '"')
 
 if [[ "${WEATHER_MAIN}" = *Snow* ]]; then
-  echo "${ICON_SNOW} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
-  echo "${ICON_SNOW} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
-  echo ""
+  echo "${ICON_SNOW} ${WEATHER_TEMP}${SYMBOL_CELSIUS} - ${WEATHER_DESCRIPTION}"
 elif [[ "${WEATHER_MAIN}" = *Rain* ]] || [[ "${WEATHER_MAIN}" = *Drizzle* ]]; then
-  echo "${ICON_RAINY} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
-  echo "${ICON_RAINY} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
-  echo ""
+  echo "${ICON_RAINY} ${WEATHER_TEMP}${SYMBOL_CELSIUS} - ${WEATHER_DESCRIPTION}"
 elif [[ "${WEATHER_MAIN}" = *Cloud* ]]; then
-  echo "${ICON_CLOUDY} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
-  echo "${ICON_CLOUDY} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
-  echo ""
+  echo "${ICON_CLOUDY} ${WEATHER_TEMP}${SYMBOL_CELSIUS} - ${WEATHER_DESCRIPTION}"
 elif [[ "${WEATHER_MAIN}" = *Clear* ]]; then
-  echo "${ICON_SUNNY} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
-  echo "${ICON_SUNNY} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
-  echo ""
+  echo "${ICON_SUNNY} ${WEATHER_TEMP}${SYMBOL_CELSIUS} - ${WEATHER_DESCRIPTION}"
 elif [[ "${WEATHER_MAIN}" = *Fog* ]] || [[ "${WEATHER_MAIN}" = *Mist* ]]; then
-  echo "${ICON_FOG} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
-  echo "${ICON_FOG} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
-  echo ""
+  echo "${ICON_FOG} ${WEATHER_TEMP}${SYMBOL_CELSIUS} - ${WEATHER_DESCRIPTION}"
 else
-  echo "${WEATHER_MAIN} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
-  echo "${WEATHER_MAIN} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
-  echo ""
-fi
-
-if [[ "${WEATHER_TEMP}" -lt "${URGENT_LOWER}" ]] || [[ "${WEATHER_TEMP}" -gt "${URGENT_HIGHER}" ]]; then
-  exit 33
+  echo "${WEATHER_MAIN} ${WEATHER_TEMP}${SYMBOL_CELSIUS} - ${WEATHER_DESCRIPTION}"
 fi
